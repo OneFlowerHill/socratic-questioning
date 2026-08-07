@@ -13,6 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - **`SKILL.md`** — 技能主体，包含拷问循环纪律、ADR 候选门槛、按需落盘规则、会话生命周期、边界与错误处理、验收标准
 - **`references/CONTEXT-FORMAT.md`** — 术语表格式规范（单/多 context 结构、推断逻辑）
 - **`references/ADR-FORMAT.md`** — ADR 格式规范（模板、编号规则、三条件门槛）
+- **`references/DISCUSSION-FORMAT.md`** — 讨论纪要格式规范（主题/slug、编号、会话分段、合并/去重/幂等、确认门禁、边界）
 - **`scripts/install.sh`** — 幂等双端 symlink 安装/卸载
 - **`scripts/check-acceptance-anchors.sh`** — acceptance 行号锚点自动校验
 - **`docs/deploy.md`** — 双端安装文档（含 Windows 说明 + 故障排除）
@@ -40,4 +41,4 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 技能运行时写入用户 cwd（非本仓库）：
 - `CONTEXT.md`（根目录）— 术语表
 - `docs/adr/NNNN-slug.md` — 架构决策记录
-- `docs/grill-summary.md` — 可选纪要（默认关闭）
+- `docs/discussions/NNNN-slug.md` — 可选讨论纪要（默认关闭，命名同 ADR）
