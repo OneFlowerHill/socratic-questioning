@@ -91,7 +91,7 @@
 
 **变更摘要**：可选纪要文件从 `docs/grill-summary.md` 迁到 `docs/discussions/NNNN-slug.md`，命名同 ADR，支持多会话按主题 slug 合并 + 段时间戳区分。
 
-**SKILL.md 行号影响**：本次改动在 SKILL.md :64（可选纪要）、保存契约段（新增第 6/7 条纪要按段合并 / 纪要幂等）、:100（落盘提示加纪要选项）、边界节（新增纪要目录与编号条）、验收#4（:122 扩展）五处落点；以上第 2/3 节行号证据已同步为改后行号（运行 `scripts/check-acceptance-anchors.sh` 校验通过）。
+**SKILL.md 行号影响（以下为改后行号）**：本次改动在 SKILL.md :64（可选纪要）、保存契约段（新增第 6 条 :75 纪要按段合并 / 第 7 条 :76 纪要幂等）、:102（落盘提示加纪要选项）、边界节（新增 :115 纪要目录与编号条）、验收#4（:125 扩展）五处落点；以上第 2/3 节行号证据已同步为改后行号（运行 `scripts/check-acceptance-anchors.sh` 校验通过）。
 
 **新增 references**：`references/DISCUSSION-FORMAT.md`（纪要格式规范，镜像 ADR-FORMAT.md）。
 

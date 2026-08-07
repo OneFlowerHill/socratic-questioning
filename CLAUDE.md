@@ -27,7 +27,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 2. **不自动创建文件**：除非用户明确要求，绝不自动创建任何文件
 3. **一次一问**：每轮只抛一个问题，附推荐答案，沿决策树逐枝推进
 4. **确认门禁**：每次写入前展示摘要/diff，用户确认后才写
-5. **保存契约**：CONTEXT.md 按术语名合并更新（不整覆盖）；ADR 按标题 slug 去重（更新而非新建）；重复保存幂等
+5. **保存契约**：CONTEXT.md 按术语名合并更新（不整覆盖）；ADR 按标题 slug 去重（更新而非新建）；纪要按 slug 按段合并（同段更新 / 新段追加 / 新主题新建），同会话幂等；重复保存幂等。详见 SKILL.md 保存契约（CR-001）
 
 ## 修改注意事项
 
