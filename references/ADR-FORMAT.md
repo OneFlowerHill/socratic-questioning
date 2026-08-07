@@ -24,7 +24,7 @@ ADR 存放于 `docs/adr/`，采用顺序编号：`0001-slug.md`、`0002-slug.md`
 
 ## 编号
 
-扫描 `docs/adr/` 中已有最大编号并 +1。
+扫描 `docs/adr/` 中文件名满足 `NNNN-*.md`（NNNN 为 4 位数字前缀）的文件，取最大 NNNN +1；不匹配该模式的文件（如 `README.md`、`.DS_Store`）忽略不计。
 
 ## 何时提供 ADR
 
