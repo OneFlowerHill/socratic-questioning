@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 项目概述
 
-`deep-discussion` 是一个 Claude Code 技能（skill），用「拷问式访谈」打磨计划或设计。合并了原版 `grill-me`（纯拷问）与 `grill-with-docs`（拷问+实时文档）为单文件技能，核心改动：**默认只聊天不落盘，用户显式要求时才写文件**。
+`deep-discussion` 是一个 Claude Code 技能（skill），用「拷问式访谈」打磨计划或设计。
 
 ## 架构
 

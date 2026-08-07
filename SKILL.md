@@ -1,6 +1,6 @@
 ---
 name: deep-discussion
-description: 用「拷问式访谈」打磨计划或设计。仅允许显式触发（斜杠命令 /deep-discussion，或用户明确说「开始拷问 / grill 我」），禁止在对话中自动 / 隐式唤起本技能。
+description: 用「拷问式访谈」打磨计划或设计。仅允许显式触发（斜杠命令 /deep-discussion），禁止在对话中自动 / 隐式唤起本技能。
 platforms: [macos, linux, windows]
 metadata:
   hermes:
@@ -8,17 +8,17 @@ metadata:
     category: software-development
 ---
 
-# deep-discussion（合并版「拷问」技能）
+# deep-discussion
 
-把原版 `grill-me`（relentless 拷问式访谈）与 `grill-with-docs`（访谈中实时产出 CONTEXT.md 与 ADR）合并为单文件技能：**默认只聊天、不落盘**；只有用户明确要求保存时，才把结果写成 `CONTEXT.md` 与 `docs/adr/`。
+**默认只聊天、不落盘**；只有用户明确要求保存时，才把结果写成 `CONTEXT.md` 与 `docs/adr/`。
 
 ## 何时使用
 
 - 用户想对一个计划 / 设计 / 决策做深度推敲。
-- 用户说「帮我 grill 一下」「拷问我」「把这件事想清楚」。
+- 用户说「deep-discussion」「深度讨论一下」「把这件事想清楚」。
 - 用户想产出或更新术语表（CONTEXT.md）与架构决策记录（ADR）。
 
-触发方式：**仅显式触发**——斜杠命令 `/deep-discussion`（可附带主题，如 `/deep-discussion 我想做个内部审批流`），或用户明确说「开始拷问 / grill 我」。不得根据上下文语义自动 / 隐式唤起；即使用户意图看似匹配，也必须先经其显式确认后才进入拷问流程。
+触发方式：**仅显式触发**——斜杠命令 `/deep-discussion`（可附带主题，如 `/deep-discussion 我想做个内部审批流`）。不得根据上下文语义自动 / 隐式唤起；即使用户意图看似匹配，也必须先经其显式确认后才进入拷问流程。
 
 ## 核心拷问循环（全程中文）
 
