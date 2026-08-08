@@ -1,14 +1,14 @@
 # socratic-questioning
 
-用「拷问式访谈」打磨计划或设计的 Claude Code / Hermes 技能。
+用「苏格拉底式追问式访谈」打磨计划或设计的 Claude Code / Hermes 技能。
 
-被唤起后，你进入「griller」角色，沿决策树逐枝拷问用户的计划：一次只问一个问题、每题附推荐答案、能从环境查到的事实直接查而不问。默认只聊天不落盘；只有用户明确要求保存时，才把结果写成 `CONTEXT.md`（术语表）、`docs/adr/`（架构决策记录），额外要求时还可生成 `docs/discussions/NNNN-slug.md`（可选讨论纪要）。
+被唤起后，你进入「苏格拉底」角色，沿决策树逐枝拷问用户的计划：一次只问一个问题、每题附推荐答案、能从环境查到的事实直接查而不问。默认只聊天不落盘；只有用户明确要求保存时，才把结果写成 `CONTEXT.md`（术语表）、`docs/adr/`（架构决策记录），额外要求时还可生成 `docs/discussions/NNNN-slug.md`（可选讨论纪要）。
 
 ## 何时用
 
-- 想对一个计划 / 设计 / 决策做深度推敲。
-- 想产出或更新术语表与架构决策记录。
-- 需要「被拷问」来逼精确概念边界。
+- 用户想对一个计划 / 设计 / 决策做深度推敲。
+- 用户说「socratic-questioning」「苏格拉底式追问」。
+- 用户想产出或更新术语表（CONTEXT.md）与架构决策记录（ADR）。
 
 ## 触发
 
@@ -26,13 +26,13 @@ bash scripts/install.sh
 
 ### 使用
 
-在 Claude Code 或 Hermes 对话中输入 `/socratic-questioning`，进入拷问流程。需要保存结果时说「保存 / 落文档」，技能会在写入前展示摘要 / diff 并经你确认后落盘到当前工作目录。
+在 Claude Code 或 Hermes 对话中输入 `/socratic-questioning`，进入苏格拉底式追问式访谈流程。需要保存结果时说「保存 / 落文档」，技能会在写入前展示摘要 / diff 并经你确认后落盘到当前工作目录。
 
 ## 文件结构
 
 ```
 socratic-questioning/
-├── SKILL.md                  # 技能主体（拷问纪律 + 落盘规则 + 验收标准）
+├── SKILL.md                  # 技能主体（追问纪律 + 落盘规则 + 验收标准）
 ├── references/               # CONTEXT / ADR / 讨论纪要 的格式规范
 ├── scripts/install.sh        # 双端 symlink 安装
 └── docs/deploy.md            # 部署指南

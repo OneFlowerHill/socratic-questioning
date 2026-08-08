@@ -4,13 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 项目概述
 
-`socratic-questioning` 是一个 Claude Code 技能（skill），用「拷问式访谈」打磨计划或设计。
+`socratic-questioning` 是一个 Claude Code 技能（skill），用「苏格拉底式追问式访谈」打磨计划或设计。
 
 ## 架构
 
 单文件自包含技能（方案 A），无子 agent、无多文件编排：
 
-- **`SKILL.md`** — 技能主体，包含拷问循环纪律、ADR 候选门槛、按需落盘规则、会话生命周期、边界与错误处理、验收标准
+- **`SKILL.md`** — 技能主体，包含追问循环纪律、ADR 候选门槛、按需落盘规则、会话生命周期、边界与错误处理、验收标准
 - **`references/CONTEXT-FORMAT.md`** — 术语表格式规范（单/多 context 结构、推断逻辑）
 - **`references/ADR-FORMAT.md`** — ADR 格式规范（模板、编号规则、三条件门槛）
 - **`references/DISCUSSION-FORMAT.md`** — 讨论纪要格式规范（主题/slug、编号、会话分段、合并/去重/幂等、确认门禁、边界）
