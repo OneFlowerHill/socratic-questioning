@@ -2,9 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** 把 deep-discussion 的可选纪要从 `docs/grill-summary.md`（单文件、多会话不可区分）迁到 `docs/discussions/NNNN-slug.md`（命名同 ADR、按主题 slug 合并、文件内按会话段时间戳累积），并落地 6 条评审 CR 的全部 Required Action。
+**Goal:** 把 socratic-questioning 的可选纪要从 `docs/grill-summary.md`（单文件、多会话不可区分）迁到 `docs/discussions/NNNN-slug.md`（命名同 ADR、按主题 slug 合并、文件内按会话段时间戳累积），并落地 6 条评审 CR 的全部 Required Action。
 
-**Architecture:** 单文件自包含技能（方案 A），无代码、无单测。改动全为 Markdown 文档：新建 `references/DISCUSSION-FORMAT.md`（格式规范，镜像 ADR-FORMAT.md / CONTEXT-FORMAT.md 模式）、改 `SKILL.md`（纪要落点 + 保存契约 + 边界 + 验收#4 + 落盘提示）、同步 `references/ADR-FORMAT.md`（编号过滤）、`CLAUDE.md`（产出文件位置）、`docs/superpowers/plans/2026-07-29-deep-discussion-acceptance.md`（行号锚点 + 增补注记）。TDD 适配为「校验驱动」：`scripts/check-acceptance-anchors.sh` 充当红/绿 oracle——改 SKILL.md 中段 → 校验 FAIL → 据 FAIL 清单同步 acceptance.md 行号 → 校验 PASS。
+**Architecture:** 单文件自包含技能（方案 A），无代码、无单测。改动全为 Markdown 文档：新建 `references/DISCUSSION-FORMAT.md`（格式规范，镜像 ADR-FORMAT.md / CONTEXT-FORMAT.md 模式）、改 `SKILL.md`（纪要落点 + 保存契约 + 边界 + 验收#4 + 落盘提示）、同步 `references/ADR-FORMAT.md`（编号过滤）、`CLAUDE.md`（产出文件位置）、`docs/superpowers/plans/2026-07-29-socratic-questioning-acceptance.md`（行号锚点 + 增补注记）。TDD 适配为「校验驱动」：`scripts/check-acceptance-anchors.sh` 充当红/绿 oracle——改 SKILL.md 中段 → 校验 FAIL → 据 FAIL 清单同步 acceptance.md 行号 → 校验 PASS。
 
 **Tech Stack:** Markdown、Bash（校验脚本）、Git。无运行时代码、无单测框架。
 
@@ -30,7 +30,7 @@
 |---|---|---|
 | `references/DISCUSSION-FORMAT.md` | 讨论纪要格式规范：主题/slug、编号、「会话」定义、文件内结构、合并/去重/幂等、确认门禁、边界。镜像 ADR-FORMAT.md / CONTEXT-FORMAT.md 模式。 | **新建**（Task 2） |
 | `SKILL.md` | 技能主体。纪要落点（:64 可选纪要）、保存契约扩展（纳纪要 CR-001）、边界节增补（纪要目录+编号）、落盘提示（:100 加纪要选项）、验收#4（:122 扩展）。 | 修改（Task 3） |
-| `docs/superpowers/plans/2026-07-29-deep-discussion-acceptance.md` | v1 验收文档。第 2/3 节行号证据同步（:75 之后引用全部重新核对）；追加 §7「2026-08-07 增补」注记。 | 修改（Task 3，与 SKILL.md 同 commit） |
+| `docs/superpowers/plans/2026-07-29-socratic-questioning-acceptance.md` | v1 验收文档。第 2/3 节行号证据同步（:75 之后引用全部重新核对）；追加 §7「2026-08-07 增补」注记。 | 修改（Task 3，与 SKILL.md 同 commit） |
 | `references/ADR-FORMAT.md` | ADR 格式规范。编号规则同步「仅匹配 NNNN-*.md」过滤（DR-006）。 | 修改（Task 4） |
 | `CLAUDE.md` | 项目指令。产出文件位置 :43 `docs/grill-summary.md` → `docs/discussions/NNNN-slug.md`。 | 修改（Task 5） |
 | 历史 docs（07-29 spec / plan / review） | 不动。 | — |
@@ -49,7 +49,7 @@
 - Consumes: 工作区当前未提交的 `M CLAUDE.md` + `M SKILL.md`（均为文案精简，非本次 spec 改动）
 - Produces: 干净的工作区基线——后续 task 的 commit 只含纪要归档改动，不混入 WIP
 
-**理由:** WIP 全是行内文字精简（删「合并版」历史措辞、收紧触发为仅 `/deep-discussion`），不增删整行、行号不变，与纪要归档改动正交。先单独提交，使后续每个 task 的 commit 干净可审。
+**理由:** WIP 全是行内文字精简（删「合并版」历史措辞、收紧触发为仅 `/socratic-questioning`），不增删整行、行号不变，与纪要归档改动正交。先单独提交，使后续每个 task 的 commit 干净可审。
 
 - [ ] **Step 1: 确认 WIP 内容仅为文案精简（无纪要相关改动）**
 
@@ -63,7 +63,7 @@ Expected: 无输出（WIP 不含纪要相关文案；若有输出说明 WIP 已�
 
 ```bash
 git add CLAUDE.md SKILL.md
-git commit -m "refactor: 去合并版历史措辞，收紧触发为仅 /deep-discussion"
+git commit -m "refactor: 去合并版历史措辞，收紧触发为仅 /socratic-questioning"
 ```
 
 - [ ] **Step 3: 确认工作区干净**
@@ -97,7 +97,7 @@ Create `references/DISCUSSION-FORMAT.md` with exactly:
 
 ## 主题与 slug
 
-- **主题来源**：命令参数优先（如 `/deep-discussion 内部审批流` → 主题「内部审批流」）；无参数则技能从对话推断，在确认门禁展示拟用主题供用户确认 / 修正。
+- **主题来源**：命令参数优先（如 `/socratic-questioning 内部审批流` → 主题「内部审批流」）；无参数则技能从对话推断，在确认门禁展示拟用主题供用户确认 / 修正。
 - **slug**：主题归一化为短英文 kebab-case（如「内部审批流」→ `internal-approval-flow`）。中文主题由技能译成英文 slug——AI 翻译非确定，故 **slug 最终由用户在确认门禁确认 / 修正，一经确认即作为该主题的持久去重键**。
 - **H1 记中文原名**：文件首行 H1 记中文主题原名（如 `# 内部审批流`），辅助人工识别——slug 是机器去重键，H1 是人读标题。
 - **同主题 = slug 匹配**：保存时按 slug 扫 `docs/discussions/` 匹配既有文件；命中 → 复用序号、在该文件内追加 / 更新会话段；未命中 → 新序号、新文件。
@@ -108,11 +108,11 @@ Create `references/DISCUSSION-FORMAT.md` with exactly:
 
 ## 「会话」定义
 
-一次 `/deep-discussion` 调用 = 一次会话（非进程生命周期、非日历日期）。
+一次 `/socratic-questioning` 调用 = 一次会话（非进程生命周期、非日历日期）。
 
 - 段时间戳 = 本次调用首次保存时刻（`YYYY-MM-DD HH:MM`）。
 - 同调用内多次保存 → 更新该段（时间戳不变），不追加。
-- 新一次 `/deep-discussion` 调用 → 新段（新时间戳）。
+- 新一次 `/socratic-questioning` 调用 → 新段（新时间戳）。
 
 ## 文件内结构
 
@@ -197,7 +197,7 @@ git commit -m "feat: 新建 references/DISCUSSION-FORMAT.md 讨论纪要格式�
 
 **Files:**
 - Modify: `SKILL.md`（5 处：:64 可选纪要、保存契约段 +2 条、:100 落盘提示、边界节 +1 条、:122 验收#4）
-- Modify: `docs/superpowers/plans/2026-07-29-deep-discussion-acceptance.md`（第 2/3 节行号同步 + 追加 §7 增补注记）
+- Modify: `docs/superpowers/plans/2026-07-29-socratic-questioning-acceptance.md`（第 2/3 节行号同步 + 追加 §7 增补注记）
 
 **Interfaces:**
 - Consumes: `references/DISCUSSION-FORMAT.md`（Task 2 已建，:64 引用之）；spec §3/§4/§5/§6/§8
@@ -297,7 +297,7 @@ grep -n "X 的行首文本" SKILL.md
 
 （X 为 acceptance.md 中「第 N 行 #X」的锚点文本；取其行首若干字符作 grep 模式）
 
-b. 在 `docs/superpowers/plans/2026-07-29-deep-discussion-acceptance.md` 中找到引用该锚点的「第 N 行 #X」，把 N 改为 grep 产出的实际行号。
+b. 在 `docs/superpowers/plans/2026-07-29-socratic-questioning-acceptance.md` 中找到引用该锚点的「第 N 行 #X」，把 N 改为 grep 产出的实际行号。
 
 c. 重点核对 acceptance.md 第 2/3/4/5/6 节中**当前引用值 ≥ :75 的所有行号**（受 +3 偏移影响）：
    - 第 2 节表格：`:76 :81 :84 :100 :106-107 :120 :121 :122 :123 :124 :125 :126`
@@ -314,7 +314,7 @@ d. 同时核对 §3 表格中保存契约条目：因新增第 6/7 条，原 :74
 
 - [ ] **Step 8: 在 acceptance.md 末尾追加 §7 增补注记**
 
-在 `docs/superpowers/plans/2026-07-29-deep-discussion-acceptance.md` 末尾（当前最后一行 `**最终结论**...` 之后）追加：
+在 `docs/superpowers/plans/2026-07-29-socratic-questioning-acceptance.md` 末尾（当前最后一行 `**最终结论**...` 之后）追加：
 
 ```md
 
@@ -369,7 +369,7 @@ Expected: `0`（SKILL.md 内已无 `grill-summary` 残留）。
 - [ ] **Step 11: 提交 SKILL.md + acceptance.md（原子 commit）**
 
 ```bash
-git add SKILL.md docs/superpowers/plans/2026-07-29-deep-discussion-acceptance.md
+git add SKILL.md docs/superpowers/plans/2026-07-29-socratic-questioning-acceptance.md
 git commit -m "feat: 纪要归档到 docs/discussions/（命名同 ADR + 多会话按主题合并）
 
 - SKILL.md :64/保存契约/边界/落盘提示/验收#4 五处落点
@@ -496,7 +496,7 @@ Expected: SKILL.md 两处（:64 可选纪要 + 验收#4）、CLAUDE.md 一处（
 Run: `test -f references/DISCUSSION-FORMAT.md && test -f references/ADR-FORMAT.md && test -f references/CONTEXT-FORMAT.md && echo OK`
 Expected: `OK`（三个 references 齐全）。
 
-Run: `grep -rn 'grill-summary' SKILL.md CLAUDE.md references/ docs/superpowers/plans/2026-07-29-deep-discussion-acceptance.md`
+Run: `grep -rn 'grill-summary' SKILL.md CLAUDE.md references/ docs/superpowers/plans/2026-07-29-socratic-questioning-acceptance.md`
 Expected: 仅 `acceptance.md` 历史段落（§1-6 的 v1 证据）可能残留作为「旧路径」引用——若有新文件仍用 `grill-summary` 作产出路径，视为遗漏。预期：SKILL.md / CLAUDE.md / DISCUSSION-FORMAT.md / ADR-FORMAT.md 内 `0` 残留。
 
 - [ ] **Step 3: 补 CLAUDE.md 架构段 references 清单（若缺失）**

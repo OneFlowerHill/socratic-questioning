@@ -20,7 +20,7 @@ TEST_REVIEW
 
 ### Design Spec
 
-/Users/yuezhenhua/yonyou/AI/skills/deep-discussion/docs/superpowers/specs/2026-07-29-deep-discussion-design.md
+/Users/yuezhenhua/yonyou/AI/skills/socratic-questioning/docs/superpowers/specs/2026-07-29-socratic-questioning-design.md
 
 ### Review Date
 
@@ -211,7 +211,7 @@ Design Spec 第 3.1 节第 1、2、3 点；验收标准第 1 条。
 
 #### Verification Gap
 
-验收标准第 1 条要求"`/deep-discussion` 能启动一次结构化拷问：一次一问、带推荐答案、逐枝推进"。这三项均为对 LLM 行为纪律的描述，缺少可客观测定的成功条件：
+验收标准第 1 条要求"`/socratic-questioning` 能启动一次结构化拷问：一次一问、带推荐答案、逐枝推进"。这三项均为对 LLM 行为纪律的描述，缺少可客观测定的成功条件：
 
 * "一次一问"：一次回复中问题数量是 1 还是"以一个问题为主"算合规？无判定阈值。
 * "带推荐答案"：每个问题是否必须附推荐答案？附了但与问题弱相关算不算合规？无标准。
@@ -221,7 +221,7 @@ Design Spec 第 3.1 节第 1、2、3 点；验收标准第 1 条。
 
 #### Trigger Scenario
 
-1. 启动 `/deep-discussion`，agent 在某一轮回复中给出 1 个主问题并附带 2 句补充说明。
+1. 启动 `/socratic-questioning`，agent 在某一轮回复中给出 1 个主问题并附带 2 句补充说明。
 2. 测试者需判定该轮是否违反"一次一问"。
 3. Design Spec 未定义"一次一问"的违规边界（如允许多少辅助文字）。
 4. 不同测试者可能给出不同结论，验收无法达成一致。
@@ -354,7 +354,7 @@ Design Spec 要求"按原版逻辑推断应使用哪个 context"，但"原版逻
 
 #### Trigger Scenario
 
-1. 用户在含 `CONTEXT-MAP.md` 的多 context 仓库中启动 `/deep-discussion`。
+1. 用户在含 `CONTEXT-MAP.md` 的多 context 仓库中启动 `/socratic-questioning`。
 2. 存在多个可选 context（如 `frontend`、`backend`）。
 3. Design Spec 未定义选择算法，"原版逻辑"未在 Spec 内可查。
 4. 实现选错 context 并落盘，单 context 验收通过，错误静默留存。

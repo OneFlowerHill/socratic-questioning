@@ -1,8 +1,8 @@
-# deep-discussion 实现验收结论（acceptance）
+# socratic-questioning 实现验收结论（acceptance）
 
 **日期**：2026-07-29
-**技能根**：`/Users/yuezhenhua/yonyou/AI/skills/deep-discussion/`
-**评审来源**：`docs/superpowers/reviews/deep-discussion/2026-07-29-review-001/consolidated-review.md`
+**技能根**：`/Users/yuezhenhua/yonyou/AI/skills/socratic-questioning/`
+**评审来源**：`docs/superpowers/reviews/socratic-questioning/2026-07-29-review-001/consolidated-review.md`
 **核对对象**：`SKILL.md`、`references/CONTEXT-FORMAT.md`、`references/ADR-FORMAT.md`
 
 ---
@@ -22,7 +22,7 @@
 
 | # | 验收标准（摘要） | 结论 | SKILL.md 行号证据 |
 |---|---|---|---|
-| 1 | `/deep-discussion` 启动结构化拷问：一次一问、带推荐答案、逐枝推进 | PASS | 第 27 行 #1. **一次一问、第 28 行 #2. **每题给推荐答案、第 29 行 #3. **沿决策树推进；可验证判据见第 37–39 行 |
+| 1 | `/socratic-questioning` 启动结构化拷问：一次一问、带推荐答案、逐枝推进 | PASS | 第 27 行 #1. **一次一问、第 28 行 #2. **每题给推荐答案、第 29 行 #3. **沿决策树推进；可验证判据见第 37–39 行 |
 | 2 | 纯聊天、用户不要求保存时，工作目录不产生任何文件 | PASS | 铁律第 33 行 #7. **铁律（最高优先级）；验收标准原文第 123 行 #2. 纯聊天、用户不 |
 | 3 | 显式说「保存/落文档」后生成 `CONTEXT.md`/`docs/adr/`，格式合规，重复保存幂等、不整覆盖 | PASS | 第 59–63 行（按需落盘）；保存契约第 66–76 行（合并/去重/幂等）；第 124 行 #3. 用户显式说「保存 |
 | 4 | 用户额外要求纪要时，才生成 `docs/discussions/NNNN-slug.md`（非 `docs/grill-summary.md`） | PASS | 第 64 行（可选纪要，默认关闭）；第 125 行 #4. 用户额外要求纪要时 |
@@ -63,7 +63,7 @@
 
 ## 5. dry-run 行为清单
 
-对一次假想的 `/deep-discussion` 会话推理（依据 `SKILL.md` 文本，不实际执行）：
+对一次假想的 `/socratic-questioning` 会话推理（依据 `SKILL.md` 文本，不实际执行）：
 
 1. **用户从不要求保存 → 无文件创建**：铁律（第 33 行 #7. **铁律（最高优先级）「绝不自动创建任何文件」）+ 验收标准 #2（第 123 行 #2. 纯聊天、用户不）共同约束，纯聊天路径不触发任何写入。结论 PASS（证据：第 33、123 行）。
 2. **用户说「帮我留着」（近似表达）→ 触发追问而非写入**：第 83 行 #- **近似表达（先追问，不直接将「帮我留着/记一下」归入近似表达，「先追问，不直接写」，回复确认意图后再落盘。结论 PASS（证据：第 83 行 #- **近似表达（先追问，不直接）。

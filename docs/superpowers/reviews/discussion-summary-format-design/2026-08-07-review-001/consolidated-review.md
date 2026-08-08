@@ -12,7 +12,7 @@ CONSOLIDATED_REVIEW
 
 ### Design Spec
 
-/Users/yuezhenhua/yonyou/projects/0__AI/skills/deep-discussion/docs/superpowers/specs/2026-08-07-discussion-summary-format-design.md
+/Users/yuezhenhua/yonyou/projects/0__AI/skills/socratic-questioning/docs/superpowers/specs/2026-08-07-discussion-summary-format-design.md
 
 ### Consolidation Date
 
@@ -313,7 +313,7 @@ PENDING_DECISION
 
 #### Unknowns
 
-* 用户是否总是通过 `/deep-discussion <主题>` 提供显式主题，或经常省略主题参数。
+* 用户是否总是通过 `/socratic-questioning <主题>` 提供显式主题，或经常省略主题参数。
 
 ### Trigger Scenario
 
@@ -396,7 +396,7 @@ NO_CONFLICT
 
 在 spec 中补充主题提取规则，至少覆盖：
 
-1. 用户以 `/deep-discussion <主题>` 附带主题时，主题从命令参数提取；
+1. 用户以 `/socratic-questioning <主题>` 附带主题时，主题从命令参数提取；
 2. 用户未附带主题时，技能从首轮对话推断，并在确认门禁中展示拟用主题（连同 slug）供确认或修改；
 3. 明确定义「同一主题」的判定标准（例如：slug 相同即同一主题，且 slug 最终由用户确认）。
 
@@ -472,7 +472,7 @@ spec §3 同时声明「懒创建：用户没额外要求就不建 `docs/discuss
 
 ### Trigger Scenario
 
-1. 用户首次在某个 cwd 使用 `/deep-discussion`（该 cwd 从未保存过纪要，无 `docs/discussions/` 目录）。
+1. 用户首次在某个 cwd 使用 `/socratic-questioning`（该 cwd 从未保存过纪要，无 `docs/discussions/` 目录）。
 2. 用户达成共同理解后说「把过程纪要也保存下来」。
 3. 技能需写入 `docs/discussions/0001-some-topic.md`，但目录不存在。
 4. spec 未定义此时自动创建目录还是提示用户手动创建。
@@ -779,7 +779,7 @@ spec 定义了纪要文件的创建、分段追加与同会话更新，但未定
 
 ### Trigger Scenario
 
-1. 用户在过去 6 个月就「API 认证方案」进行了 15 次 `/deep-discussion` 会话，均要求保存纪要。
+1. 用户在过去 6 个月就「API 认证方案」进行了 15 次 `/socratic-questioning` 会话，均要求保存纪要。
 2. `docs/discussions/0003-api-authentication.md` 现含 15 个会话段，文件超过 2000 行。
 3. 用户想回顾第 3 次会话的结论，只能逐段浏览，缺乏目录 / 摘要 / 搜索辅助。
 4. 用户想确定哪些讨论结论已落实为 ADR、哪些仍悬而未决，但文件缺乏汇总性状态标注。
@@ -1417,7 +1417,7 @@ PR-003 + TD-003（均 P2）共享根因：会话段去重纯依赖易失上下�
 1. §4 段标题加时间戳 `## 会话 YYYY-MM-DD HH:MM`。
 2. §4/§5 增文件系统级安全网：写入前读目标文件，若存在同时间戳段则更新而非追加。
 3. §7 跨进程/上下文丢失条款改为「新调用 = 新段时间戳可区分，文件系统安全网兜底同时间戳碰撞」。
-4. §4 定义「会话」= 一次 /deep-discussion 调用，段时间戳 = 本次调用首次保存时刻，同调用内重存更新该段（时间戳不变）。
+4. §4 定义「会话」= 一次 /socratic-questioning 调用，段时间戳 = 本次调用首次保存时刻，同调用内重存更新该段（时间戳不变）。
 
 ### Decision Date
 

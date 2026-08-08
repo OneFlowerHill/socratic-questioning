@@ -25,7 +25,7 @@ CONSOLIDATED_REVIEW
 
 ### Design Spec
 
-/Users/yuezhenhua/yonyou/AI/skills/deep-discussion/docs/superpowers/specs/2026-07-29-deep-discussion-design.md
+/Users/yuezhenhua/yonyou/AI/skills/socratic-questioning/docs/superpowers/specs/2026-07-29-socratic-questioning-design.md
 
 ### Consolidation Date
 
@@ -59,9 +59,9 @@ COMPLETED
 
 | Reviewer            | Review Type    | Review ID                  | Source File                                                                                  | Status   |
 | ------------------- | -------------- | -------------------------- | -------------------------------------------------------------------------------------------- | -------- |
-| yy-product-reviewer | PRODUCT_REVIEW | PROD-REVIEW-2026-07-29-001 | docs/superpowers/reviews/deep-discussion/2026-07-29-review-001/product-review.md                 | AVAILABLE |
-| yy-system-critic    | SYSTEM_REVIEW  | SYS-REVIEW-2026-07-29-001  | docs/superpowers/reviews/deep-discussion/2026-07-29-review-001/system-review.md                  | AVAILABLE |
-| yy-test-designer    | TEST_REVIEW    | TEST-REVIEW-2026-07-29-001 | docs/superpowers/reviews/deep-discussion/2026-07-29-review-001/test-review.md                    | AVAILABLE |
+| yy-product-reviewer | PRODUCT_REVIEW | PROD-REVIEW-2026-07-29-001 | docs/superpowers/reviews/socratic-questioning/2026-07-29-review-001/product-review.md                 | AVAILABLE |
+| yy-system-critic    | SYSTEM_REVIEW  | SYS-REVIEW-2026-07-29-001  | docs/superpowers/reviews/socratic-questioning/2026-07-29-review-001/system-review.md                  | AVAILABLE |
+| yy-test-designer    | TEST_REVIEW    | TEST-REVIEW-2026-07-29-001 | docs/superpowers/reviews/socratic-questioning/2026-07-29-review-001/test-review.md                    | AVAILABLE |
 
 ---
 
@@ -129,7 +129,7 @@ Design Spec 从未定义"保存动作如何与已存在或历史内容交互"：
 ### Trigger Scenario
 
 1. cwd 已存在 CONTEXT.md 与 docs/adr/0001-*.md（可能来自先前会话或其他工具）。
-2. 用户运行 `/deep-discussion` 并推进访谈，说出"保存 / 落文档"。
+2. 用户运行 `/socratic-questioning` 并推进访谈，说出"保存 / 落文档"。
 3. 技能按 3.2 直接写 cwd，无 pre-write 存在性检测，也无去重/更新判定。
 4. 既有 CONTEXT.md 被整文件覆盖；再次保存时基于"最大号+1"追加新 ADR，可能就同一决策重复生成一条，旧决策未更新。
 5. 结果：既有内容丢失（不可恢复，除非 cwd 受版本控制）+ ADR 重复/冲突 + CONTEXT.md 内容漂移。
@@ -521,7 +521,7 @@ PENDING_DECISION
 
 ### Trigger Scenario
 
-1. 用户 `/deep-discussion` 进行到第 5 个问题，草稿已有 3 条决策候选（其中 1 条尚未被最终确认）。
+1. 用户 `/socratic-questioning` 进行到第 5 个问题，草稿已有 3 条决策候选（其中 1 条尚未被最终确认）。
 2. 用户中途说"先帮我保存一下"，系统将当前草稿写入 CONTEXT.md 与 docs/adr/。
 3. 后续拷问中，第 1 条决策被用户推翻并改为相反方案。
 4. 已落盘的 ADR 仍为被推翻的旧决策，文档与最终理解冲突；且文档未定义此时是否应回滚/更新旧 ADR。
@@ -776,7 +776,7 @@ PENDING_DECISION
 
 ### Trigger Scenario
 
-1. 用户在含多个子项目、各自有 context 的仓库中运行 `/deep-discussion`，系统检测到 CONTEXT-MAP.md。
+1. 用户在含多个子项目、各自有 context 的仓库中运行 `/socratic-questioning`，系统检测到 CONTEXT-MAP.md。
 2. 设计文档要求"按原版逻辑推断应使用哪个 context"，但本规范未定义该推断规则。
 3. 实现者需自行解释"原版逻辑"，可能正确推断，也可能误选 context。
 4. 若推断不确定却未触发"询问用户"分支，术语/决策将写入错误 context 作用域。
@@ -883,7 +883,7 @@ PENDING_DECISION
 
 ### Underlying Problem
 
-验收标准第 1 条要求"`/deep-discussion` 能启动一次结构化拷问：一次一问、带推荐答案、逐枝推进"，但这三项均为对 LLM 行为纪律的描述，缺少可客观测定的成功/违规条件："一次一问"允许多少辅助文字？"带推荐答案"附了但弱相关算不算合规？"逐枝推进/走遍每个分支"何为"走遍"、由谁、依何种证据判定已覆盖？行为仅体现为自然语言文本，无法被独立测试者以确定性方式判定 pass/fail。
+验收标准第 1 条要求"`/socratic-questioning` 能启动一次结构化拷问：一次一问、带推荐答案、逐枝推进"，但这三项均为对 LLM 行为纪律的描述，缺少可客观测定的成功/违规条件："一次一问"允许多少辅助文字？"带推荐答案"附了但弱相关算不算合规？"逐枝推进/走遍每个分支"何为"走遍"、由谁、依何种证据判定已覆盖？行为仅体现为自然语言文本，无法被独立测试者以确定性方式判定 pass/fail。
 
 ### Evidence
 
@@ -902,7 +902,7 @@ PENDING_DECISION
 
 ### Trigger Scenario
 
-1. 启动 `/deep-discussion`，agent 在某一轮回复中给出 1 个主问题并附带 2 句补充说明。
+1. 启动 `/socratic-questioning`，agent 在某一轮回复中给出 1 个主问题并附带 2 句补充说明。
 2. 测试者需判定该轮是否违反"一次一问"。
 3. 设计文档未定义"一次一问"的违规边界（如允许多少辅助文字）。
 4. 不同测试者可能给出不同结论，验收无法达成一致。
@@ -1151,7 +1151,7 @@ PENDING_DECISION
 
 ### Trigger Scenario
 
-1. 用户在项目仓库根目录（cwd）运行 `/deep-discussion` 并要求保存。
+1. 用户在项目仓库根目录（cwd）运行 `/socratic-questioning` 并要求保存。
 2. CONTEXT.md、docs/adr/ 写入仓库根。
 3. 被 git 跟踪/误提交，污染仓库；或与另一主题的会话产物混在同一目录。
 
@@ -1431,9 +1431,9 @@ No coverage gaps — all three source reviews are available.
 
 - **Consolidated Review**：本文件
 - **Source Reviews**：
-  - `docs/superpowers/reviews/deep-discussion/2026-07-29-review-001/product-review.md`
-  - `docs/superpowers/reviews/deep-discussion/2026-07-29-review-001/system-review.md`
-  - `docs/superpowers/reviews/deep-discussion/2026-07-29-review-001/test-review.md`
+  - `docs/superpowers/reviews/socratic-questioning/2026-07-29-review-001/product-review.md`
+  - `docs/superpowers/reviews/socratic-questioning/2026-07-29-review-001/system-review.md`
+  - `docs/superpowers/reviews/socratic-questioning/2026-07-29-review-001/test-review.md`
 
 ## What to Decide
 
@@ -2273,26 +2273,26 @@ review:
   review_id: "CONS-REVIEW-2026-07-29-001"
   review_type: "CONSOLIDATED_REVIEW"
   status: "COMPLETED"
-  design_spec: "/Users/yuezhenhua/yonyou/AI/skills/deep-discussion/docs/superpowers/specs/2026-07-29-deep-discussion-design.md"
+  design_spec: "/Users/yuezhenhua/yonyou/AI/skills/socratic-questioning/docs/superpowers/specs/2026-07-29-socratic-questioning-design.md"
   round: 1
-  spec_stem: "deep-discussion"
+  spec_stem: "socratic-questioning"
   final_review_state: "CHANGES_REQUIRED"
 
 source_reviews:
   - reviewer: "yy-product-reviewer"
     review_type: "PRODUCT_REVIEW"
     review_id: "PROD-REVIEW-2026-07-29-001"
-    source_file: "docs/superpowers/reviews/deep-discussion/2026-07-29-review-001/product-review.md"
+    source_file: "docs/superpowers/reviews/socratic-questioning/2026-07-29-review-001/product-review.md"
     status: "AVAILABLE"
   - reviewer: "yy-system-critic"
     review_type: "SYSTEM_REVIEW"
     review_id: "SYS-REVIEW-2026-07-29-001"
-    source_file: "docs/superpowers/reviews/deep-discussion/2026-07-29-review-001/system-review.md"
+    source_file: "docs/superpowers/reviews/socratic-questioning/2026-07-29-review-001/system-review.md"
     status: "AVAILABLE"
   - reviewer: "yy-test-designer"
     review_type: "TEST_REVIEW"
     review_id: "TEST-REVIEW-2026-07-29-001"
-    source_file: "docs/superpowers/reviews/deep-discussion/2026-07-29-review-001/test-review.md"
+    source_file: "docs/superpowers/reviews/socratic-questioning/2026-07-29-review-001/test-review.md"
     status: "AVAILABLE"
 
 consolidated_findings:

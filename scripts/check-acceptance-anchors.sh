@@ -6,7 +6,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SRC="$(cd "$SCRIPT_DIR/.." && pwd)"
 SKILL="$SRC/SKILL.md"
-ACCEPT="$SRC/docs/superpowers/plans/2026-07-29-deep-discussion-acceptance.md"
+ACCEPT="$SRC/docs/superpowers/plans/2026-07-29-socratic-questioning-acceptance.md"
 
 for f in "$SKILL" "$ACCEPT"; do
   [ -f "$f" ] || { echo "缺文件: $f" >&2; exit 2; }

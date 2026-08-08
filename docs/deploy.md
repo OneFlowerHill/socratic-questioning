@@ -1,6 +1,6 @@
-# deep-discussion 部署指南
+# socratic-questioning 部署指南
 
-`deep-discussion` 是单文件自包含技能，同一份源通过 symlink 同时暴露给 Claude Code 与 Hermes。
+`socratic-questioning` 是单文件自包含技能，同一份源通过 symlink 同时暴露给 Claude Code 与 Hermes。
 
 ## 前置
 
@@ -19,15 +19,15 @@ bash scripts/install.sh
 ```
 
 安装到：
-- `~/.claude/skills/deep-discussion` → 指向 `<repo>`
-- `~/.hermes/skills/software-development/deep-discussion` → 指向 `<repo>`
+- `~/.claude/skills/socratic-questioning` → 指向 `<repo>`
+- `~/.hermes/skills/software-development/socratic-questioning` → 指向 `<repo>`
 
 ### 手动安装
 
 ```bash
-ln -s <repo> ~/.claude/skills/deep-discussion
+ln -s <repo> ~/.claude/skills/socratic-questioning
 mkdir -p ~/.hermes/skills/software-development
-ln -s <repo> ~/.hermes/skills/software-development/deep-discussion
+ln -s <repo> ~/.hermes/skills/software-development/socratic-questioning
 ```
 
 ### 卸载
@@ -44,23 +44,23 @@ install.sh 为 bash 脚本，Windows 下用 PowerShell 手动建链或直接复�
 
 ```powershell
 $repo = "<repo 绝对路径>"
-New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude\skills\deep-discussion" -Target $repo
-New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.hermes\skills\software-development\deep-discussion" -Target $repo
+New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.claude\skills\socratic-questioning" -Target $repo
+New-Item -ItemType SymbolicLink -Path "$env:USERPROFILE\.hermes\skills\software-development\socratic-questioning" -Target $repo
 ```
 
 ### 直接复制（无需管理员权限）
 
 ```powershell
-Copy-Item -Recurse <repo> "$env:USERPROFILE\.claude\skills\deep-discussion"
-Copy-Item -Recurse <repo> "$env:USERPROFILE\.hermes\skills\software-development\deep-discussion"
+Copy-Item -Recurse <repo> "$env:USERPROFILE\.claude\skills\socratic-questioning"
+Copy-Item -Recurse <repo> "$env:USERPROFILE\.hermes\skills\software-development\socratic-questioning"
 ```
 
 注意：复制方式下，源更新后需重新复制；symlink 方式则自动同步。
 
 ## 验证
 
-- Claude Code：在对话中输入 `/deep-discussion` 应能启动拷问流程。
-- Hermes：`hermes skills` 应列出 `deep-discussion`（分类 `software-development`）。
+- Claude Code：在对话中输入 `/socratic-questioning` 应能启动拷问流程。
+- Hermes：`hermes skills` 应列出 `socratic-questioning`（分类 `software-development`）。
 
 ## 故障排除
 
@@ -76,13 +76,13 @@ bash scripts/install.sh               # 重试
 
 install.sh 不覆盖既有非同源 symlink。先查看：
 ```bash
-ls -l ~/.claude/skills/deep-discussion ~/.hermes/skills/software-development/deep-discussion
+ls -l ~/.claude/skills/socratic-questioning ~/.hermes/skills/software-development/socratic-questioning
 ```
 确认为旧链后手动 `rm` 删除，再重试安装。
 
 ### SKILL.md name 与脚本不一致
 
-install.sh `verify_source` 报「SKILL.md name='...' 与脚本 NAME='deep-discussion' 不一致」：说明源内容未完成改名，回到仓库执行改名步骤后再装。
+install.sh `verify_source` 报「SKILL.md name='...' 与脚本 NAME='socratic-questioning' 不一致」：说明源内容未完成改名，回到仓库执行改名步骤后再装。
 
 ### `hermes` 命令找不到
 

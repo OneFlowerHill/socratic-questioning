@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-# install.sh — deep-discussion 双端 symlink 安装/卸载（幂等）
+# install.sh — socratic-questioning 双端 symlink 安装/卸载（幂等）
 set -euo pipefail
 
 SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-NAME="deep-discussion"
+NAME="socratic-questioning"
 CLAUDE_LINK="$HOME/.claude/skills/$NAME"
 HERMES_LINK="$HOME/.hermes/skills/software-development/$NAME"
 

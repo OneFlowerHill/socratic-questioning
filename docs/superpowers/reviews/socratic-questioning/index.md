@@ -1,4 +1,4 @@
-# Review Index — deep-discussion
+# Review Index — socratic-questioning
 
 ## 输出语言
 
@@ -13,7 +13,7 @@ YAML 索引中的 title 等描述性字段使用中文。
 
 ## Design Spec
 
-/Users/yuezhenhua/yonyou/AI/skills/deep-discussion/docs/superpowers/specs/2026-07-29-deep-discussion-design.md
+/Users/yuezhenhua/yonyou/AI/skills/socratic-questioning/docs/superpowers/specs/2026-07-29-socratic-questioning-design.md
 
 ## Review Rounds
 
@@ -52,8 +52,8 @@ Status values: PENDING_DECISION, BLOCKED, CHANGES_REQUIRED, CONDITIONAL_APPROVAL
 
 ```yaml
 spec:
-  path: "/Users/yuezhenhua/yonyou/AI/skills/deep-discussion/docs/superpowers/specs/2026-07-29-deep-discussion-design.md"
-  stem: "deep-discussion"
+  path: "/Users/yuezhenhua/yonyou/AI/skills/socratic-questioning/docs/superpowers/specs/2026-07-29-socratic-questioning-design.md"
+  stem: "socratic-questioning"
 
 rounds:
   - round: 1

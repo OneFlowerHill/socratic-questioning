@@ -20,7 +20,7 @@ SYSTEM_REVIEW
 
 ### Design Spec
 
-/Users/yuezhenhua/yonyou/AI/skills/deep-discussion/docs/superpowers/specs/2026-07-29-deep-discussion-design.md
+/Users/yuezhenhua/yonyou/AI/skills/socratic-questioning/docs/superpowers/specs/2026-07-29-socratic-questioning-design.md
 
 ### Review Date
 
@@ -75,7 +75,7 @@ Design Spec 第 3.2 节（按需落盘）、第 2 节「落盘位置：当前工
 #### Trigger Condition
 
 1. cwd 已存在 CONTEXT.md（可能来自先前会话或其他工具）。
-2. 用户启动 `/deep-discussion` 并推进访谈。
+2. 用户启动 `/socratic-questioning` 并推进访谈。
 3. 用户说「保存 / 落文档」。
 4. 技能按 3.2 直接写 cwd，未做 pre-write 检查。
 5. 既有 CONTEXT.md 被整体覆盖，用户此前内容丢失。
@@ -450,7 +450,7 @@ Design Spec 第 2 节（落盘位置：当前工作目录 cwd）、第 5 节（�
 
 #### Trigger Condition
 
-1. 用户在项目仓库根目录（cwd）运行 `/deep-discussion`。
+1. 用户在项目仓库根目录（cwd）运行 `/socratic-questioning`。
 2. 用户要求保存。
 3. CONTEXT.md、docs/adr/ 写入仓库根。
 4. 被 git 跟踪 / 误提交，污染仓库；或与另一主题的会话产物混在同一目录。
@@ -589,7 +589,7 @@ OPEN
 
 #### Why It Is Difficult to Reverse
 
-若后续希望引入确定性命令（如显式 `/deep-discussion-save`）以降低误触发，需改变用户交互契约与技能描述，属于对外接口承诺。
+若后续希望引入确定性命令（如显式 `/socratic-questioning-save`）以降低误触发，需改变用户交互契约与技能描述，属于对外接口承诺。
 
 #### Reversal Cost
 
@@ -621,7 +621,7 @@ OPEN
 
 #### Question
 
-用户运行 `/deep-discussion` 的 cwd 是否处于 git 版本控制？设计是否假设/要求这一点？
+用户运行 `/socratic-questioning` 的 cwd 是否处于 git 版本控制？设计是否假设/要求这一点？
 
 #### Why It Matters
 

@@ -1,4 +1,4 @@
-# 设计文档：deep-discussion（合并版「拷问」技能）
+# 设计文档：socratic-questioning（合并版「拷问」技能）
 
 - 日期：2026-07-29
 - 作者：与用户协作设计（参照 mattpocock/skills 的 grill-me 与 grill-with-docs）
@@ -22,9 +22,9 @@
 | 维度 | 决策 |
 |---|---|
 | 结构方案 | **方案 A**：单文件自包含 `SKILL.md`，主 agent 直接充当 grill 者，不拆子 agent |
-| 触发方式 | 斜杠命令 **`/deep-discussion`** 启动会话（可附带主题，如 `/deep-discussion 我想做个内部审批流`） |
+| 触发方式 | 斜杠命令 **`/socratic-questioning`** 启动会话（可附带主题，如 `/socratic-questioning 我想做个内部审批流`） |
 
-> 实现注：用户面向的调用入口是 `/deep-discussion`，技能内部 `name` 取 `deep-discussion`。两者通过 WorkBuddy 的命令/技能映射关联（实现阶段确定具体绑定方式，例如把 `/deep-discussion` 配置为调用该技能，或让技能 description 命中「拷问/grill」类意图以自然语言唤起）。
+> 实现注：用户面向的调用入口是 `/socratic-questioning`，技能内部 `name` 取 `socratic-questioning`。两者通过 WorkBuddy 的命令/技能映射关联（实现阶段确定具体绑定方式，例如把 `/socratic-questioning` 配置为调用该技能，或让技能 description 命中「拷问/grill」类意图以自然语言唤起）。
 | 语言 | **全程中文**（技能指令、提问、产出文档均为中文） |
 | 文档内容 | 对齐原版：`CONTEXT.md`（术语表）+ `docs/adr/*`（决策记录） |
 | 落盘触发 | 仅当用户明确要求保存时；会话中或结束后均可 |
@@ -35,7 +35,7 @@
 
 ### 3.1 拷问采访循环（核心，全程中文）
 
-技能被 `/deep-discussion` 唤起后，主 agent 进入「griller」角色，遵循以下纪律：
+技能被 `/socratic-questioning` 唤起后，主 agent 进入「griller」角色，遵循以下纪律：
 
 1. **一次一问**：每次只抛**一个问题**，等用户回答后再继续；绝不一次甩多个问题。
 2. **每题给推荐答案**：每个问题都附上 agent 的推荐答案，供用户参考或反驳。
@@ -62,10 +62,10 @@
 
 ## 4. 文件结构
 
-技能目录 `deep-discussion/` 内：
+技能目录 `socratic-questioning/` 内：
 
 ```
-deep-discussion/
+socratic-questioning/
 ├── SKILL.md                    # 主技能：拷问循环 + 按需落盘指令（中文）
 └── references/
     ├── CONTEXT-FORMAT.md       # 术语表格式（译自 Matt 原版，中文）
@@ -73,7 +73,7 @@ deep-discussion/
 ```
 
 说明：
-- `SKILL.md` 的 frontmatter `name` 取 `deep-discussion`，`description` 用中文描述触发场景（打磨计划/设计、需要被「拷问」对齐时）。
+- `SKILL.md` 的 frontmatter `name` 取 `socratic-questioning`，`description` 用中文描述触发场景（打磨计划/设计、需要被「拷问」对齐时）。
 - `references/` 下的两份格式文件直接复用原版结构、翻译为中文，保证产出文档与原版一致且可读。
 
 ## 5. 边界与错误处理
@@ -85,7 +85,7 @@ deep-discussion/
 
 ## 6. 验收标准
 
-1. `/deep-discussion` 能启动一次结构化拷问：一次一问、带推荐答案、逐枝推进。
+1. `/socratic-questioning` 能启动一次结构化拷问：一次一问、带推荐答案、逐枝推进。
 2. 纯聊天、用户不要求保存时，工作目录**不产生任何文件**。
 3. 用户说「保存 / 落文档」后，在 cwd 生成 `CONTEXT.md`（有术语时）和 `docs/adr/`（有达标决策时），格式符合 references 规范。
 4. 用户额外要求时，才生成 `docs/grill-summary.md`。

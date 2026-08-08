@@ -20,7 +20,7 @@ PRODUCT_REVIEW
 
 ### Design Spec
 
-/Users/yuezhenhua/yonyou/AI/skills/deep-discussion/docs/superpowers/specs/2026-07-29-deep-discussion-design.md
+/Users/yuezhenhua/yonyou/AI/skills/socratic-questioning/docs/superpowers/specs/2026-07-29-socratic-questioning-design.md
 
 ### Review Date
 
@@ -83,11 +83,11 @@ Design Spec 第 3.2 节「按需落盘」——"序号扫描 `docs/adr/` 现有�
 
 由此产生的产品行为缺口：
 - 同一会话内用户两次说"保存"，会基于当前最大号再次 +1，生成内容重复、编号相邻的两份 ADR；
-- 跨会话再次 `/deep-discussion` 并保存时，可能把同源决策生成新一轮 ADR，长期累积造成编号膨胀与决策重复，且无任何"是否已存在对应 ADR"的判定。
+- 跨会话再次 `/socratic-questioning` 并保存时，可能把同源决策生成新一轮 ADR，长期累积造成编号膨胀与决策重复，且无任何"是否已存在对应 ADR"的判定。
 
 #### Trigger Scenario
 
-1. 用户运行 `/deep-discussion`，完成若干决策，草稿中累积 2 条达标决策。
+1. 用户运行 `/socratic-questioning`，完成若干决策，草稿中累积 2 条达标决策。
 2. 用户说"保存"，系统在 cwd 生成 `docs/adr/0001-*.md`、`docs/adr/0002-*.md`。
 3. 用户继续聊天，又补充了 1 条决策，再次说"保存"。
 4. 设计文档未定义"再次保存"应覆盖、跳过还是追加；按"最大号+1"字面值，系统将生成 `0003-*.md`、`0004-*.md`，其中 0001/0002 可能被重复写出或保留旧版，造成重复与不一致。
@@ -209,7 +209,7 @@ Design Spec 第 3.2 节（"会话中或结束后均可"保存）与第 3.1 节�
 
 #### Trigger Scenario
 
-1. 用户 `/deep-discussion` 进行到第 5 个问题，草稿中已有 3 条决策候选（其中 1 条尚未被用户最终确认）。
+1. 用户 `/socratic-questioning` 进行到第 5 个问题，草稿中已有 3 条决策候选（其中 1 条尚未被用户最终确认）。
 2. 用户中途说"先帮我保存一下"。
 3. 设计文档允许会话中保存；系统将当前草稿写入 `CONTEXT.md` 与 `docs/adr/`。
 4. 后续拷问中，第 1 条决策被用户推翻并改为相反方案。
@@ -333,7 +333,7 @@ Design Spec 第 5 节「多 context 仓库」——"按原版逻辑推断应使�
 
 #### Trigger Scenario
 
-1. 用户在含多个子项目、各自有 context 的仓库中运行 `/deep-discussion`。
+1. 用户在含多个子项目、各自有 context 的仓库中运行 `/socratic-questioning`。
 2. 系统检测到 `CONTEXT-MAP.md`。
 3. 设计文档要求"按原版逻辑推断应使用哪个 context"，但本规范未定义该推断规则。
 4. 实现者需自行解释"原版逻辑"，可能正确推断，也可能误选 context。
@@ -419,11 +419,11 @@ OPEN
 
 ---
 
-### Q-002 — 重新运行 `/deep-discussion` 时，历史 ADR 与新会话的关系如何处理？
+### Q-002 — 重新运行 `/socratic-questioning` 时，历史 ADR 与新会话的关系如何处理？
 
 #### Question
 
-用户在已有 `docs/adr/` 的仓库再次 `/deep-discussion`，新决策与既有 ADR 冲突或重复时，技能应追加、更新还是提示？本规范仅定义"最大号+1"，未定义与历史内容的协调。
+用户在已有 `docs/adr/` 的仓库再次 `/socratic-questioning`，新决策与既有 ADR 冲突或重复时，技能应追加、更新还是提示？本规范仅定义"最大号+1"，未定义与历史内容的协调。
 
 #### Why It Matters
 
@@ -564,5 +564,5 @@ open_questions:
     question: "「达成共同理解」的确认是否需要结构化信号？"
   - id: "Q-002"
     status: "OPEN"
-    question: "重新运行 /deep-discussion 时，历史 ADR 与新会话的关系如何处理？"
+    question: "重新运行 /socratic-questioning 时，历史 ADR 与新会话的关系如何处理？"
 ```

@@ -1,19 +1,19 @@
-# deep-discussion 实现计划
+# socratic-questioning 实现计划
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** 实现合并版「拷问」技能 `deep-discussion`——单文件 `SKILL.md`（主 agent 直接充当 grill 者）+ 两份中文格式参考文件，默认只聊天不落盘，仅在用户显式要求时才把结果写成 `CONTEXT.md` 与 `docs/adr/`。
+**Goal:** 实现合并版「拷问」技能 `socratic-questioning`——单文件 `SKILL.md`（主 agent 直接充当 grill 者）+ 两份中文格式参考文件，默认只聊天不落盘，仅在用户显式要求时才把结果写成 `CONTEXT.md` 与 `docs/adr/`。
 
 **Architecture:** 纯指令型技能（markdown），无代码、无子 agent、无外部调用。所有行为由 `SKILL.md` 指令驱动；两份 `references/*.md` 仅作格式规范被引用。本计划已把评审中 8 条 ACCEPTED 变更（CR-001/002/003/004/005/007/008/010）拆解进对应任务；2 条 DEFERRED（CR-006 多 context 规则、CR-009 cwd 隔离）以"沿用原版 / 后续增强"方式在任务中显式标注，不在 v1 实现。
 
-**Tech Stack:** WorkBuddy Skill（Markdown frontmatter + 指令正文）；触发通过 `/deep-discussion` 斜杠命令绑定到 `name: deep-discussion`；无运行时依赖。
+**Tech Stack:** WorkBuddy Skill（Markdown frontmatter + 指令正文）；触发通过 `/socratic-questioning` 斜杠命令绑定到 `name: socratic-questioning`；无运行时依赖。
 
 ## Global Constraints
 
-以下为规格（2026-07-29-deep-discussion-design.md）中的项目级硬性要求，逐字照搬，每个任务默认继承：
+以下为规格（2026-07-29-socratic-questioning-design.md）中的项目级硬性要求，逐字照搬，每个任务默认继承：
 
 - 结构方案：**方案 A**——单文件自包含 `SKILL.md`，主 agent 直接充当 grill 者，**不拆子 agent**。
-- 触发方式：斜杠命令 **`/deep-discussion`** 启动会话（可附带主题）。
+- 触发方式：斜杠命令 **`/socratic-questioning`** 启动会话（可附带主题）。
 - 语言：**全程中文**（技能指令、提问、产出文档均为中文）。
 - 文档内容：对齐原版 `CONTEXT.md`（术语表）+ `docs/adr/*`（决策记录）。
 - 落盘触发：**仅当用户明确要求保存时**；会话中或结束后均可。
@@ -42,7 +42,7 @@
 ## File Structure
 
 ```
-deep-discussion/
+socratic-questioning/
 ├── SKILL.md                          # 主技能：拷问循环 + ADR门槛 + 按需落盘(含保存契约/触发门禁) + 会话生命周期 + 边界 + 验收
 └── references/
     ├── CONTEXT-FORMAT.md             # 术语表格式（译自 domain-modeling/CONTEXT-FORMAT.md，中文）
@@ -56,31 +56,31 @@ deep-discussion/
 ## Task 1: 创建 SKILL.md 骨架与核心拷问循环（含铁律与纪律判据）
 
 **Files:**
-- Create: `deep-discussion/SKILL.md`
+- Create: `socratic-questioning/SKILL.md`
 
 **Interfaces:**
-- 产出：可被 WorkBuddy 以 `/deep-discussion` 唤起的技能文件，含 frontmatter(`name: deep-discussion`) 与「核心拷问循环」「ADR 候选门槛」「铁律」三节。
+- 产出：可被 WorkBuddy 以 `/socratic-questioning` 唤起的技能文件，含 frontmatter(`name: socratic-questioning`) 与「核心拷问循环」「ADR 候选门槛」「铁律」三节。
 - 后续任务在其上追加「按需落盘 / 会话生命周期 / 边界 / 验收」等节。
 
 - [ ] **Step 1: 写失败检查——确认文件尚不存在**
 
 ```bash
-test -f deep-discussion/SKILL.md && echo "EXISTS" || echo "MISSING"
+test -f socratic-questioning/SKILL.md && echo "EXISTS" || echo "MISSING"
 ```
 
 Expected: `MISSING`
 
 - [ ] **Step 2: 写入 SKILL.md 骨架 + 核心拷问循环（含 CR-007 判据与铁律）**
 
-将以下内容完整写入 `deep-discussion/SKILL.md`（注意 frontmatter 的 `name` 取 `deep-discussion`，description 用中文；`/deep-discussion` 是用户面向入口，在 WorkBuddy 命令绑定中映射到本技能）：
+将以下内容完整写入 `socratic-questioning/SKILL.md`（注意 frontmatter 的 `name` 取 `socratic-questioning`，description 用中文；`/socratic-questioning` 是用户面向入口，在 WorkBuddy 命令绑定中映射到本技能）：
 
 ````markdown
 ---
-name: deep-discussion
+name: socratic-questioning
 description: 用「拷问式访谈」打磨计划或设计。当用户想被深度追问以对齐理解、或明确要求把讨论结果落成 CONTEXT.md / ADR 文档时使用。触发词含「拷问 / grill / 对齐理解 / 帮我捋清楚」。
 ---
 
-# deep-discussion（合并版「拷问」技能）
+# socratic-questioning（合并版「拷问」技能）
 
 把原版 `grill-me`（relentless 拷问式访谈）与 `grill-with-docs`（访谈中实时产出 CONTEXT.md 与 ADR）合并为单文件技能：**默认只聊天、不落盘**；只有用户明确要求保存时，才把结果写成 `CONTEXT.md` 与 `docs/adr/`。
 
@@ -90,7 +90,7 @@ description: 用「拷问式访谈」打磨计划或设计。当用户想被深�
 - 用户说「帮我 grill 一下」「拷问我」「把这件事想清楚」。
 - 用户想产出或更新术语表（CONTEXT.md）与架构决策记录（ADR）。
 
-触发方式：斜杠命令 `/deep-discussion`（可附带主题，如 `/deep-discussion 我想做个内部审批流`）。也可由上述自然语言意图唤起。
+触发方式：斜杠命令 `/socratic-questioning`（可附带主题，如 `/socratic-questioning 我想做个内部审批流`）。也可由上述自然语言意图唤起。
 
 ## 核心拷问循环（全程中文）
 
@@ -130,10 +130,10 @@ description: 用「拷问式访谈」打磨计划或设计。当用户想被深�
 - [ ] **Step 3: 写通过检查——确认关键句存在**
 
 ```bash
-grep -q "绝不自动创建任何文件" deep-discussion/SKILL.md && echo "OK_IRONRULE" || echo "FAIL"
-grep -q "name: deep-discussion" deep-discussion/SKILL.md && echo "OK_NAME" || echo "FAIL"
-grep -q "拷问纪律的可验证判据" deep-discussion/SKILL.md && echo "OK_DISCIPLINE" || echo "FAIL"
-grep -q "难回退" deep-discussion/SKILL.md && echo "OK_ADR" || echo "FAIL"
+grep -q "绝不自动创建任何文件" socratic-questioning/SKILL.md && echo "OK_IRONRULE" || echo "FAIL"
+grep -q "name: socratic-questioning" socratic-questioning/SKILL.md && echo "OK_NAME" || echo "FAIL"
+grep -q "拷问纪律的可验证判据" socratic-questioning/SKILL.md && echo "OK_DISCIPLINE" || echo "FAIL"
+grep -q "难回退" socratic-questioning/SKILL.md && echo "OK_ADR" || echo "FAIL"
 ```
 
 Expected: 四行均为 `OK_*`（无 `FAIL`）
@@ -141,8 +141,8 @@ Expected: 四行均为 `OK_*`（无 `FAIL`）
 - [ ] **Step 4: 提交**
 
 ```bash
-git -C deep-discussion add SKILL.md
-git -C deep-discussion commit -m "feat(deep-discussion): 骨架 + 核心拷问循环 + 铁律 + 纪律判据 + ADR门槛(CR-002/CR-007)"
+git -C socratic-questioning add SKILL.md
+git -C socratic-questioning commit -m "feat(socratic-questioning): 骨架 + 核心拷问循环 + 铁律 + 纪律判据 + ADR门槛(CR-002/CR-007)"
 ```
 
 ---
@@ -150,7 +150,7 @@ git -C deep-discussion commit -m "feat(deep-discussion): 骨架 + 核心拷问�
 ## Task 2: 追加「按需落盘」（保存契约 CR-001 + 触发边界与门禁 CR-003 + 恢复 CR-008）
 
 **Files:**
-- Modify: `deep-discussion/SKILL.md`（在「ADR 候选门槛」节后追加「按需落盘」整节）
+- Modify: `socratic-questioning/SKILL.md`（在「ADR 候选门槛」节后追加「按需落盘」整节）
 
 **Interfaces:**
 - 依赖：Task 1 已写入 frontmatter 与「ADR 候选门槛」。
@@ -159,14 +159,14 @@ git -C deep-discussion commit -m "feat(deep-discussion): 骨架 + 核心拷问�
 - [ ] **Step 1: 写失败检查——确认「按需落盘」节尚不存在**
 
 ```bash
-grep -q "## 按需落盘" deep-discussion/SKILL.md && echo "EXISTS" || echo "MISSING"
+grep -q "## 按需落盘" socratic-questioning/SKILL.md && echo "EXISTS" || echo "MISSING"
 ```
 
 Expected: `MISSING`
 
 - [ ] **Step 2: 在文件末尾追加「按需落盘」整节**
 
-在 `deep-discussion/SKILL.md` 现有内容末尾追加（注意：保留 Task 1 已写内容，仅追加）：
+在 `socratic-questioning/SKILL.md` 现有内容末尾追加（注意：保留 Task 1 已写内容，仅追加）：
 
 ````markdown
 
@@ -207,11 +207,11 @@ Expected: `MISSING`
 - [ ] **Step 3: 写通过检查——确认三类触发与契约要点存在**
 
 ```bash
-grep -q "强触发" deep-discussion/SKILL.md && echo "OK_TRIGGER" || echo "FAIL"
-grep -q "近似表达" deep-discussion/SKILL.md && echo "OK_APPROX" || echo "FAIL"
-grep -q "确认门禁" deep-discussion/SKILL.md && echo "OK_GATE" || echo "FAIL"
-grep -q "写入前检测存在性" deep-discussion/SKILL.md && echo "OK_CONTRACT" || echo "FAIL"
-grep -q "幂等" deep-discussion/SKILL.md && echo "OK_IDEMPOTENT" || echo "FAIL"
+grep -q "强触发" socratic-questioning/SKILL.md && echo "OK_TRIGGER" || echo "FAIL"
+grep -q "近似表达" socratic-questioning/SKILL.md && echo "OK_APPROX" || echo "FAIL"
+grep -q "确认门禁" socratic-questioning/SKILL.md && echo "OK_GATE" || echo "FAIL"
+grep -q "写入前检测存在性" socratic-questioning/SKILL.md && echo "OK_CONTRACT" || echo "FAIL"
+grep -q "幂等" socratic-questioning/SKILL.md && echo "OK_IDEMPOTENT" || echo "FAIL"
 ```
 
 Expected: 五行均为 `OK_*`
@@ -219,8 +219,8 @@ Expected: 五行均为 `OK_*`
 - [ ] **Step 4: 提交**
 
 ```bash
-git -C deep-discussion add SKILL.md
-git -C deep-discussion commit -m "feat(deep-discussion): 按需落盘-保存契约(CR-001)+触发边界与确认门禁(CR-003)+恢复(CR-008)"
+git -C socratic-questioning add SKILL.md
+git -C socratic-questioning commit -m "feat(socratic-questioning): 按需落盘-保存契约(CR-001)+触发边界与确认门禁(CR-003)+恢复(CR-008)"
 ```
 
 ---
@@ -228,7 +228,7 @@ git -C deep-discussion commit -m "feat(deep-discussion): 按需落盘-保存契�
 ## Task 3: 追加「会话生命周期」与「边界与错误处理」「验收标准」（CR-004/005/010 + 边界更新）
 
 **Files:**
-- Modify: `deep-discussion/SKILL.md`（追加「会话生命周期」「边界与错误处理」「验收标准」三节；其中「边界与错误处理」须覆盖 cwd 不可写、重启、铁律、多 context 与 CR-009 标注）
+- Modify: `socratic-questioning/SKILL.md`（追加「会话生命周期」「边界与错误处理」「验收标准」三节；其中「边界与错误处理」须覆盖 cwd 不可写、重启、铁律、多 context 与 CR-009 标注）
 
 **Interfaces:**
 - 依赖：Task 2 的「按需落盘」节。
@@ -237,14 +237,14 @@ git -C deep-discussion commit -m "feat(deep-discussion): 按需落盘-保存契�
 - [ ] **Step 1: 写失败检查——确认「会话生命周期」节尚不存在**
 
 ```bash
-grep -q "## 会话生命周期" deep-discussion/SKILL.md && echo "EXISTS" || echo "MISSING"
+grep -q "## 会话生命周期" socratic-questioning/SKILL.md && echo "EXISTS" || echo "MISSING"
 ```
 
 Expected: `MISSING`
 
 - [ ] **Step 2: 追加「会话生命周期」「边界与错误处理」「验收标准」**
 
-在 `deep-discussion/SKILL.md` 末尾追加：
+在 `socratic-questioning/SKILL.md` 末尾追加：
 
 ````markdown
 
@@ -276,7 +276,7 @@ Expected: `MISSING`
 
 ## 验收标准
 
-1. `/deep-discussion` 能启动一次结构化拷问：一次一问、带推荐答案、逐枝推进（判据见上文「拷问纪律的可验证判据」）。
+1. `/socratic-questioning` 能启动一次结构化拷问：一次一问、带推荐答案、逐枝推进（判据见上文「拷问纪律的可验证判据」）。
 2. 纯聊天、用户不要求保存时，工作目录**不产生任何文件**。
 3. 用户显式说「保存 / 落文档」后，在 cwd 生成 `CONTEXT.md`（有术语时）与 `docs/adr/`（有达标决策时），格式符合 references 规范；重复保存幂等、不重复、不整覆盖既有内容。
 4. 用户额外要求时，才生成 `docs/grill-summary.md`。
@@ -288,11 +288,11 @@ Expected: `MISSING`
 - [ ] **Step 3: 写通过检查——确认 CR-004/005/010 要点与 DEFERRED 标注存在**
 
 ```bash
-grep -q "中途保存" deep-discussion/SKILL.md && echo "OK_MID" || echo "FAIL"
-grep -q "主动提示" deep-discussion/SKILL.md && echo "OK_TERM" || echo "FAIL"
-grep -q "纯净度等式" deep-discussion/SKILL.md && echo "OK_RESET" || echo "FAIL"
-grep -q "CR-009 DEFERRED" deep-discussion/SKILL.md && echo "OK_DEFERRED" || echo "FAIL"
-grep -c "验收标准" deep-discussion/SKILL.md | grep -q "2" && echo "OK_ACCEPT" || echo "FAIL"
+grep -q "中途保存" socratic-questioning/SKILL.md && echo "OK_MID" || echo "FAIL"
+grep -q "主动提示" socratic-questioning/SKILL.md && echo "OK_TERM" || echo "FAIL"
+grep -q "纯净度等式" socratic-questioning/SKILL.md && echo "OK_RESET" || echo "FAIL"
+grep -q "CR-009 DEFERRED" socratic-questioning/SKILL.md && echo "OK_DEFERRED" || echo "FAIL"
+grep -c "验收标准" socratic-questioning/SKILL.md | grep -q "2" && echo "OK_ACCEPT" || echo "FAIL"
 ```
 
 Expected: 五行均为 `OK_*`
@@ -300,8 +300,8 @@ Expected: 五行均为 `OK_*`
 - [ ] **Step 4: 提交**
 
 ```bash
-git -C deep-discussion add SKILL.md
-git -C deep-discussion commit -m "feat(deep-discussion): 会话生命周期(CR-004/005/010)+边界+验收标准"
+git -C socratic-questioning add SKILL.md
+git -C socratic-questioning commit -m "feat(socratic-questioning): 会话生命周期(CR-004/005/010)+边界+验收标准"
 ```
 
 ---
@@ -309,7 +309,7 @@ git -C deep-discussion commit -m "feat(deep-discussion): 会话生命周期(CR-0
 ## Task 4: 创建 references/CONTEXT-FORMAT.md（中文翻译，含单/多 context 推断）
 
 **Files:**
-- Create: `deep-discussion/references/CONTEXT-FORMAT.md`
+- Create: `socratic-questioning/references/CONTEXT-FORMAT.md`
 
 **Interfaces:**
 - 依赖：Task 1–3 已在 SKILL.md 中引用 `references/CONTEXT-FORMAT.md`。
@@ -318,14 +318,14 @@ git -C deep-discussion commit -m "feat(deep-discussion): 会话生命周期(CR-0
 - [ ] **Step 1: 写失败检查——确认文件不存在**
 
 ```bash
-test -f deep-discussion/references/CONTEXT-FORMAT.md && echo "EXISTS" || echo "MISSING"
+test -f socratic-questioning/references/CONTEXT-FORMAT.md && echo "EXISTS" || echo "MISSING"
 ```
 
 Expected: `MISSING`
 
 - [ ] **Step 2: 写入中文翻译（结构对齐原版 domain-modeling/CONTEXT-FORMAT.md）**
 
-将以下内容完整写入 `deep-discussion/references/CONTEXT-FORMAT.md`：
+将以下内容完整写入 `socratic-questioning/references/CONTEXT-FORMAT.md`：
 
 ````markdown
 # CONTEXT.md 格式
@@ -393,9 +393,9 @@ _避免_：Client, buyer, account（客户、买家、账户）
 - [ ] **Step 3: 写通过检查——确认结构与多 context 推断规则存在**
 
 ```bash
-grep -q "_避免_" deep-discussion/references/CONTEXT-FORMAT.md && echo "OK_AVOID" || echo "FAIL"
-grep -q "CONTEXT-MAP.md" deep-discussion/references/CONTEXT-FORMAT.md && echo "OK_MULTI" || echo "FAIL"
-grep -q "若不确定，询问用户" deep-discussion/references/CONTEXT-FORMAT.md && echo "OK_ASK" || echo "FAIL"
+grep -q "_避免_" socratic-questioning/references/CONTEXT-FORMAT.md && echo "OK_AVOID" || echo "FAIL"
+grep -q "CONTEXT-MAP.md" socratic-questioning/references/CONTEXT-FORMAT.md && echo "OK_MULTI" || echo "FAIL"
+grep -q "若不确定，询问用户" socratic-questioning/references/CONTEXT-FORMAT.md && echo "OK_ASK" || echo "FAIL"
 ```
 
 Expected: 三行均为 `OK_*`
@@ -403,8 +403,8 @@ Expected: 三行均为 `OK_*`
 - [ ] **Step 4: 提交**
 
 ```bash
-git -C deep-discussion add references/CONTEXT-FORMAT.md
-git -C deep-discussion commit -m "docs(deep-discussion): 中文术语表格式(CONTEXT-FORMAT)"
+git -C socratic-questioning add references/CONTEXT-FORMAT.md
+git -C socratic-questioning commit -m "docs(socratic-questioning): 中文术语表格式(CONTEXT-FORMAT)"
 ```
 
 ---
@@ -412,7 +412,7 @@ git -C deep-discussion commit -m "docs(deep-discussion): 中文术语表格式(C
 ## Task 5: 创建 references/ADR-FORMAT.md（中文翻译，含三条件与正反例）
 
 **Files:**
-- Create: `deep-discussion/references/ADR-FORMAT.md`
+- Create: `socratic-questioning/references/ADR-FORMAT.md`
 
 **Interfaces:**
 - 依赖：Task 1–3 已在 SKILL.md 中引用 `references/ADR-FORMAT.md`。
@@ -421,14 +421,14 @@ git -C deep-discussion commit -m "docs(deep-discussion): 中文术语表格式(C
 - [ ] **Step 1: 写失败检查——确认文件不存在**
 
 ```bash
-test -f deep-discussion/references/ADR-FORMAT.md && echo "EXISTS" || echo "MISSING"
+test -f socratic-questioning/references/ADR-FORMAT.md && echo "EXISTS" || echo "MISSING"
 ```
 
 Expected: `MISSING`
 
 - [ ] **Step 2: 写入中文翻译（结构对齐原版 domain-modeling/ADR-FORMAT.md）**
 
-将以下内容完整写入 `deep-discussion/references/ADR-FORMAT.md`：
+将以下内容完整写入 `socratic-questioning/references/ADR-FORMAT.md`：
 
 ````markdown
 # ADR 格式
@@ -483,10 +483,10 @@ ADR 存放于 `docs/adr/`，采用顺序编号：`0001-slug.md`、`0002-slug.md`
 - [ ] **Step 3: 写通过检查——确认三条件与示例存在**
 
 ```bash
-grep -q "难回退" deep-discussion/references/ADR-FORMAT.md && echo "OK_HARD" || echo "FAIL"
-grep -q "外人会疑惑" deep-discussion/references/ADR-FORMAT.md && echo "OK_SURPRISE" || echo "FAIL"
-grep -q "真实取舍" deep-discussion/references/ADR-FORMAT.md && echo "OK_TRADEOFF" || echo "FAIL"
-grep -q "哪些算" deep-discussion/references/ADR-FORMAT.md && echo "OK_EXAMPLES" || echo "FAIL"
+grep -q "难回退" socratic-questioning/references/ADR-FORMAT.md && echo "OK_HARD" || echo "FAIL"
+grep -q "外人会疑惑" socratic-questioning/references/ADR-FORMAT.md && echo "OK_SURPRISE" || echo "FAIL"
+grep -q "真实取舍" socratic-questioning/references/ADR-FORMAT.md && echo "OK_TRADEOFF" || echo "FAIL"
+grep -q "哪些算" socratic-questioning/references/ADR-FORMAT.md && echo "OK_EXAMPLES" || echo "FAIL"
 ```
 
 Expected: 四行均为 `OK_*`
@@ -494,8 +494,8 @@ Expected: 四行均为 `OK_*`
 - [ ] **Step 4: 提交**
 
 ```bash
-git -C deep-discussion add references/ADR-FORMAT.md
-git -C deep-discussion commit -m "docs(deep-discussion): 中文ADR格式(ADR-FORMAT)"
+git -C socratic-questioning add references/ADR-FORMAT.md
+git -C socratic-questioning commit -m "docs(socratic-questioning): 中文ADR格式(ADR-FORMAT)"
 ```
 
 ---
@@ -503,18 +503,18 @@ git -C deep-discussion commit -m "docs(deep-discussion): 中文ADR格式(ADR-FOR
 ## Task 6: 整体验收评审（手动 dry-run + 条款核对）
 
 **Files:**
-- Read: `deep-discussion/SKILL.md`、`deep-discussion/references/CONTEXT-FORMAT.md`、`deep-discussion/references/ADR-FORMAT.md`
-- Read（参考）: `docs/superpowers/specs/2026-07-29-deep-discussion-design.md`、`docs/superpowers/reviews/deep-discussion/2026-07-29-review-001/consolidated-review.md`
+- Read: `socratic-questioning/SKILL.md`、`socratic-questioning/references/CONTEXT-FORMAT.md`、`socratic-questioning/references/ADR-FORMAT.md`
+- Read（参考）: `docs/superpowers/specs/2026-07-29-socratic-questioning-design.md`、`docs/superpowers/reviews/socratic-questioning/2026-07-29-review-001/consolidated-review.md`
 
 **Interfaces:**
 - 依赖：Task 1–5 全部完成。
-- 产出：一份验收结论（写入 `docs/superpowers/plans/2026-07-29-deep-discussion-acceptance.md`），逐条核对规格验收标准与 8 条 ACCEPTED 变更的落地情况。
+- 产出：一份验收结论（写入 `docs/superpowers/plans/2026-07-29-socratic-questioning-acceptance.md`），逐条核对规格验收标准与 8 条 ACCEPTED 变更的落地情况。
 
 - [ ] **Step 1: 内容一致性核对——三条核心纪律判据、铁律、触发门禁齐全**
 
 ```bash
 for kw in "一次一问" "每题给推荐答案" "沿决策树推进" "绝不自动创建任何文件" "确认门禁" "保存契约" "难回退" "纯净度等式" "CR-009 DEFERRED" "CR-006 DEFERRED"; do
-  grep -q "$kw" deep-discussion/SKILL.md && echo "OK: $kw" || echo "MISSING: $kw"
+  grep -q "$kw" socratic-questioning/SKILL.md && echo "OK: $kw" || echo "MISSING: $kw"
 done
 ```
 
@@ -523,13 +523,13 @@ Expected: 全部 `OK:`
 - [ ] **Step 2: 引用完整性核对——SKILL.md 引用的两份 reference 均存在且非空**
 
 ```bash
-test -s deep-discussion/references/CONTEXT-FORMAT.md && echo "OK_CTX" || echo "FAIL"
-test -s deep-discussion/references/ADR-FORMAT.md && echo "OK_ADR" || echo "FAIL"
+test -s socratic-questioning/references/CONTEXT-FORMAT.md && echo "OK_CTX" || echo "FAIL"
+test -s socratic-questioning/references/ADR-FORMAT.md && echo "OK_ADR" || echo "FAIL"
 ```
 
 Expected: 两行均为 `OK_*`
 
-- [ ] **Step 3: 模拟 `/deep-discussion` 行为 dry-run（人工评审清单）**
+- [ ] **Step 3: 模拟 `/socratic-questioning` 行为 dry-run（人工评审清单）**
 
 按 SKILL.md 走一遍假设对话，确认：
 1. 用户不要求保存时，全程不产生任何文件（铁律）。
@@ -541,13 +541,13 @@ Expected: 两行均为 `OK_*`
 
 - [ ] **Step 4: 写验收结论文件**
 
-将上方核对结果整理为 `docs/superpowers/plans/2026-07-29-deep-discussion-acceptance.md`，标注：规格 7 条验收标准全部可满足；8 条 ACCEPTED 变更已落地；2 条 DEFERRED（CR-006/CR-009）按"沿用原版/后续增强"明确标注，不阻塞 v1。
+将上方核对结果整理为 `docs/superpowers/plans/2026-07-29-socratic-questioning-acceptance.md`，标注：规格 7 条验收标准全部可满足；8 条 ACCEPTED 变更已落地；2 条 DEFERRED（CR-006/CR-009）按"沿用原版/后续增强"明确标注，不阻塞 v1。
 
 - [ ] **Step 5: 提交**
 
 ```bash
-git -C deep-discussion add docs/superpowers/plans/2026-07-29-deep-discussion-acceptance.md
-git -C deep-discussion commit -m "docs(deep-discussion): 实现验收结论(8 ACCEPTED 落地, 2 DEFERRED 标注)"
+git -C socratic-questioning add docs/superpowers/plans/2026-07-29-socratic-questioning-acceptance.md
+git -C socratic-questioning commit -m "docs(socratic-questioning): 实现验收结论(8 ACCEPTED 落地, 2 DEFERRED 标注)"
 ```
 
 ---
@@ -555,7 +555,7 @@ git -C deep-discussion commit -m "docs(deep-discussion): 实现验收结论(8 AC
 ## Self-Review（计划自检）
 
 **1. 规格覆盖：**
-- 背景/目标/触发 → Task 1（何时使用 + `/deep-discussion`）。
+- 背景/目标/触发 → Task 1（何时使用 + `/socratic-questioning`）。
 - 核心拷问循环（6 项纪律）→ Task 1。
 - ADR 候选门槛 → Task 1（敲定 + 三条件 + 正反例）。
 - 按需落盘（位置/懒创建/可选纪要）→ Task 2。

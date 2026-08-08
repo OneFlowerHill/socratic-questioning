@@ -20,7 +20,7 @@ SYSTEM_REVIEW
 
 ### Design Spec
 
-/Users/yuezhenhua/yonyou/projects/0__AI/skills/deep-discussion/docs/superpowers/specs/2026-08-07-discussion-summary-format-design.md
+/Users/yuezhenhua/yonyou/projects/0__AI/skills/socratic-questioning/docs/superpowers/specs/2026-08-07-discussion-summary-format-design.md
 
 ### Review Date
 
@@ -236,14 +236,14 @@ Record which system risk dimensions were evaluated.
 
 ## Unresolved System Questions
 
-### Q-001 — 同一 Claude 进程内多次调用 `/deep-discussion` 的会话身份边界未定义
+### Q-001 — 同一 Claude 进程内多次调用 `/socratic-questioning` 的会话身份边界未定义
 
 #### Question
 
 规格以日历日期 `YYYY-MM-DD` 作为会话段的标识（§4："技能在上下文内记住本次会话写的文件 + 段日期"），但对"同一日历日内多次独立讨论"与"跨日连续讨论"两种场景的区分未明确。
 
 具体而言：
-- 用户在同一个 Claude 进程中，上午执行 `/deep-discussion 审批流` 并保存，下午再次执行 `/deep-discussion 审批流` 并保存——规格的预期行为是什么？按同日期合并到同一 `## 会话 YYYY-MM-DD` 段，还是应视为两次独立会话分别追加？
+- 用户在同一个 Claude 进程中，上午执行 `/socratic-questioning 审批流` 并保存，下午再次执行 `/socratic-questioning 审批流` 并保存——规格的预期行为是什么？按同日期合并到同一 `## 会话 YYYY-MM-DD` 段，还是应视为两次独立会话分别追加？
 - 用户在同一个 Claude 进程中，从 23:50 开始讨论到 00:10 跨日——日期变更后保存，是追加新段（`## 会话 next-day`）还是继续更新当前段？
 
 #### Why It Matters
@@ -252,7 +252,7 @@ Record which system risk dimensions were evaluated.
 
 #### Required Clarification
 
-明确"会话"的定义域：是与 Claude 进程实例绑定（同一进程 = 同一次对话），还是与日历日期绑定（同一天 = 同一会话），还是与 `/deep-discussion` 单次调用绑定（每次调用 = 独立会话）。
+明确"会话"的定义域：是与 Claude 进程实例绑定（同一进程 = 同一次对话），还是与日历日期绑定（同一天 = 同一会话），还是与 `/socratic-questioning` 单次调用绑定（每次调用 = 独立会话）。
 
 #### Status
 
@@ -340,7 +340,7 @@ complexity_risks: []
 open_questions:
   - id: "Q-001"
     status: "OPEN"
-    question: "同一 Claude 进程内多次调用 /deep-discussion 的会话身份边界未定义：同日多次独立讨论应合并还是分开？跨日连续讨论应拆分还是继续？"
+    question: "同一 Claude 进程内多次调用 /socratic-questioning 的会话身份边界未定义：同日多次独立讨论应合并还是分开？跨日连续讨论应拆分还是继续？"
 ```
 
 ---

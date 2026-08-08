@@ -3,7 +3,7 @@
 **日期**：2026-08-07
 **版本**：v2（经 spec-review `2026-08-07-review-001` 评审，6 条 CR 全部 ACCEPTED 并纳入；评审见 `docs/superpowers/reviews/discussion-summary-format-design/2026-08-07-review-001/`）
 **主题**：把可选纪要文件从 `docs/grill-summary.md` 迁到 `docs/discussions/NNNN-slug.md`，命名规则对齐 ADR，支持多会话区分
-**影响技能**：deep-discussion
+**影响技能**：socratic-questioning
 **关联**：对 v1（2026-07-29 交付）的增量改动；不改 v1 历史 spec / plan / review
 
 ---
@@ -30,7 +30,7 @@ v1 的可选纪要固定写到 cwd 的 `docs/grill-summary.md` 单文件：
 | 文件内多会话排版 | 一会话一段 `## 会话 YYYY-MM-DD HH:MM` + 同会话内幂等 | 段含时间戳以区分同日多段；同会话重存更新该段不追加（DR-004） |
 | 格式规则存放 | 新建 `references/DISCUSSION-FORMAT.md` | 镜像 ADR / CONTEXT 各有格式文件的架构 |
 
-**「会话」定义**：一次 `/deep-discussion` 调用 = 一次会话（非进程生命周期、非日历日期）。段时间戳 = 本次调用首次保存时刻；同调用内多次保存更新该段（时间戳不变）；新调用 = 新段。
+**「会话」定义**：一次 `/socratic-questioning` 调用 = 一次会话（非进程生命周期、非日历日期）。段时间戳 = 本次调用首次保存时刻；同调用内多次保存更新该段（时间戳不变）；新调用 = 新段。
 
 ## 3. 落盘规则（行为契约）
 
@@ -68,7 +68,7 @@ v1 的可选纪要固定写到 cwd 的 `docs/grill-summary.md` 单文件：
 
 - **同会话重存**：更新本段（覆盖该 `## 会话 YYYY-MM-DD HH:MM` 段，时间戳不变），不追加；技能在上下文内记住本次会话写的文件 + 段时间戳
 - **文件系统安全网**（DR-004）：写入前读取目标文件，若已存在同时间戳段则更新而非追加——镜像 ADR 文件系统去重，不纯靠上下文内存；上下文意外丢失时同时间戳碰撞仍被兜底
-- **跨会话同主题**：新一次 `/deep-discussion` 同主题 → 同文件追加新段时间戳；识别方式 = save 时按 slug 扫 `docs/discussions/` 匹配既有文件，命中 → 复用序号、追加段
+- **跨会话同主题**：新一次 `/socratic-questioning` 同主题 → 同文件追加新段时间戳；识别方式 = save 时按 slug 扫 `docs/discussions/` 匹配既有文件，命中 → 复用序号、追加段
 - **跨会话不同主题**：新文件、新序号
 
 ## 5. 保存契约扩展（CR-001 增补）
@@ -89,7 +89,7 @@ v1 的可选纪要固定写到 cwd 的 `docs/grill-summary.md` 单文件：
 | `references/DISCUSSION-FORMAT.md` | **新建**：模板（H1 中文原名 + 可选状态 frontmatter）、分段（含时间戳）、主题提取规则、slug / 编号（含 NNNN-*.md 过滤）、同会话幂等 + 文件系统安全网 + 跨会话追加规则 |
 | `references/ADR-FORMAT.md` | 编号规则同步「仅匹配 NNNN-*.md」过滤（DR-006） |
 | `CLAUDE.md` | :43 `docs/grill-summary.md` → `docs/discussions/NNNN-slug.md` |
-| `docs/superpowers/plans/2026-07-29-deep-discussion-acceptance.md` | 同步 #4 行号证据（:64 / :122 位移后）；追加「2026-08-07 增补」注记指向本 spec |
+| `docs/superpowers/plans/2026-07-29-socratic-questioning-acceptance.md` | 同步 #4 行号证据（:64 / :122 位移后）；追加「2026-08-07 增补」注记指向本 spec |
 | `docs/superpowers/specs/2026-08-07-discussion-summary-format-design.md` | 本文档 |
 | 历史 docs（07-29 spec / plan / review） | 不动 |
 
@@ -97,7 +97,7 @@ v1 的可选纪要固定写到 cwd 的 `docs/grill-summary.md` 单文件：
 
 - **slug 非确定性**（DR-001）：AI 中译英非确定，故 slug 最终由用户在确认门禁确认 / 修正；门禁展示既有 slug 列表辅助对齐；文件 H1 记中文原名辅助识别。不再以纯 YAGNI 免责——主动缓解
 - **主题提取**（DR-002）：命令参数优先，无参数则推断 + 门禁展示；同主题 = slug 匹配（用户确认）
-- **跨 Claude 进程 / 上下文丢失**（DR-004）：新一次 `/deep-discussion` 调用 = 新会话 = 新段时间戳（可区分）；上下文意外丢失时，新段时间戳使「新保存事件」可见而非静默重复，文件系统安全网兜底同时间戳碰撞
+- **跨 Claude 进程 / 上下文丢失**（DR-004）：新一次 `/socratic-questioning` 调用 = 新会话 = 新段时间戳（可区分）；上下文意外丢失时，新段时间戳使「新保存事件」可见而非静默重复，文件系统安全网兜底同时间戳碰撞
 - **既有 `docs/grill-summary.md`**：不自动迁移；cwd 已有旧文件时提示用户手动迁移或保留，不静默改写
 - **多 context 仓库**：纪要仍写到 cwd 根 `docs/discussions/`，不按 context 分仓（沿用 CR-009 DEFERRED 范围）
 - **已知局限 / 后续增强**（DR-005）：纪要文件长期生命周期管理（文件增长、归档、清理、浏览辅助、ADR 关联维护）为 v1 范围外，后续增强；DISCUSSION-FORMAT.md 预留可选「状态」frontmatter 为扩展点

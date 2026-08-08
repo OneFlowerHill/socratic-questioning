@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 项目概述
 
-`deep-discussion` 是一个 Claude Code 技能（skill），用「拷问式访谈」打磨计划或设计。
+`socratic-questioning` 是一个 Claude Code 技能（skill），用「拷问式访谈」打磨计划或设计。
 
 ## 架构
 
@@ -23,7 +23,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 关键铁律（修改时必须遵守）
 
-1. **显式触发**：技能只能通过 `/deep-discussion` 或用户明确要求唤起，禁止自动/隐式触发
+1. **显式触发**：技能只能通过 `/socratic-questioning` 或用户明确要求唤起，禁止自动/隐式触发
 2. **不自动创建文件**：除非用户明确要求，绝不自动创建任何文件
 3. **一次一问**：每轮只抛一个问题，附推荐答案，沿决策树逐枝推进
 4. **确认门禁**：每次写入前展示摘要/diff，用户确认后才写
@@ -32,7 +32,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## 修改注意事项
 
 - 全程中文：技能指令、提问、产出文档均为中文
-- `SKILL.md` 行号在验收文档中有精确引用，修改后需同步更新 `docs/superpowers/plans/2026-07-29-deep-discussion-acceptance.md` 中的行号证据
+- `SKILL.md` 行号在验收文档中有精确引用，修改后需同步更新 `docs/superpowers/plans/2026-07-29-socratic-questioning-acceptance.md` 中的行号证据
 - ADR 候选三条件（难回退 + 外人会疑惑 + 真实取舍）在 `SKILL.md` 和 `references/ADR-FORMAT.md` 中均有表述，修改一处需同步另一处
 - DEFERRED 两项（CR-006 多 context 规则、CR-009 cwd 隔离）标注为 v1 后续增强，不阻塞当前版本
 

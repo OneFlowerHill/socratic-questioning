@@ -16,7 +16,7 @@ PRODUCT_REVIEW
 
 ### Design Spec
 
-/Users/yuezhenhua/yonyou/projects/0__AI/skills/deep-discussion/docs/superpowers/specs/2026-08-07-discussion-summary-format-design.md
+/Users/yuezhenhua/yonyou/projects/0__AI/skills/socratic-questioning/docs/superpowers/specs/2026-08-07-discussion-summary-format-design.md
 
 ### Review Date
 
@@ -173,7 +173,7 @@ HIGH
 
 #### Trigger Scenario
 
-1. 用户首次在某个 cwd 中使用 `/deep-discussion`（该 cwd 从未保存过纪要，无 `docs/discussions/` 目录）。
+1. 用户首次在某个 cwd 中使用 `/socratic-questioning`（该 cwd 从未保存过纪要，无 `docs/discussions/` 目录）。
 2. 用户讨论结束、达成共同理解后说：「把过程纪要也保存下来」。
 3. 技能需要写入 `docs/discussions/0001-some-topic.md`，但 `docs/discussions/` 目录不存在。
 4. 设计规格未定义此时应自动创建目录还是提示用户手动创建。
@@ -250,7 +250,7 @@ MEDIUM
 
 #### Trigger Scenario
 
-1. 用户在上午 10:00 开始 `/deep-discussion` 讨论「API 认证方案」，中途保存了一次纪要到 `docs/discussions/0003-api-authentication.md`，生成了 `## 会话 2026-08-07` 段。
+1. 用户在上午 10:00 开始 `/socratic-questioning` 讨论「API 认证方案」，中途保存了一次纪要到 `docs/discussions/0003-api-authentication.md`，生成了 `## 会话 2026-08-07` 段。
 2. 用户在上午 10:30 因会话超时或主动关闭，重新打开 Claude Code 继续同一主题的讨论。
 3. 用户在 10:35 再次做了一些问答后要求保存纪要。
 4. 按设计规格，新进程不知上次段日期，本次被识别为「新会话」，在文件中追加一个新的 `## 会话 2026-08-07` 段（同一日期）。
@@ -321,7 +321,7 @@ MEDIUM
 
 #### Trigger Scenario
 
-1. 用户在过去 6 个月中，就「API 认证方案」进行了 15 次 `/deep-discussion` 会话，每次均要求保存纪要。
+1. 用户在过去 6 个月中，就「API 认证方案」进行了 15 次 `/socratic-questioning` 会话，每次均要求保存纪要。
 2. `docs/discussions/0003-api-authentication.md` 现已包含 15 个 `## 会话 YYYY-MM-DD` 段，文件超过 2000 行。
 3. 用户想回顾第 3 次会话中讨论的某个结论，但只能逐段浏览，缺乏导航手段（无目录、无摘要、无搜索辅助）。
 4. 用户想确定哪些讨论结论已落实为 ADR、哪些仍悬而未决，但文件中缺乏汇总性的状态标注。
@@ -413,8 +413,8 @@ OPEN
 
 ## Review Limitations
 
-- **翻译非确定性的实证范围有限**：PR-001 基于大语言模型的已知特性（非确定性输出）推断 slug 翻译可能出现不一致，但未在实际的 deep-discussion 会话中实证复现此问题。置信度标记为 HIGH 需要注明：此置信度来源于 LLM 行为的广泛文献记录和业界共识，而非针对本 spec 的专项测试。
-- **纪要实际使用频率未知**：PR-003 和 PR-004 的风险评估基于对「典型用户行为」的推断（长讨论可能跨进程；文件可能随时间累积），但缺乏 deep-discussion 技能的实际使用统计数据。如果典型使用模式是短讨论、单次完成，则这些风险的实际影响会降低。
+- **翻译非确定性的实证范围有限**：PR-001 基于大语言模型的已知特性（非确定性输出）推断 slug 翻译可能出现不一致，但未在实际的 socratic-questioning 会话中实证复现此问题。置信度标记为 HIGH 需要注明：此置信度来源于 LLM 行为的广泛文献记录和业界共识，而非针对本 spec 的专项测试。
+- **纪要实际使用频率未知**：PR-003 和 PR-004 的风险评估基于对「典型用户行为」的推断（长讨论可能跨进程；文件可能随时间累积），但缺乏 socratic-questioning 技能的实际使用统计数据。如果典型使用模式是短讨论、单次完成，则这些风险的实际影响会降低。
 
 ---
 

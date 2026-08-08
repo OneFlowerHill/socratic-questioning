@@ -1,4 +1,4 @@
-# deep-discussion
+# socratic-questioning
 
 用「拷问式访谈」打磨计划或设计的 Claude Code / Hermes 技能。
 
@@ -12,7 +12,7 @@
 
 ## 触发
 
-仅显式触发——斜杠命令 `/deep-discussion`（可附主题，如 `/deep-discussion 我想做个内部审批流`）。不根据对话语义自动唤起。
+仅显式触发——斜杠命令 `/socratic-questioning`（可附主题，如 `/socratic-questioning 我想做个内部审批流`）。不根据对话语义自动唤起。
 
 ## 快速开始
 
@@ -26,12 +26,12 @@ bash scripts/install.sh
 
 ### 使用
 
-在 Claude Code 或 Hermes 对话中输入 `/deep-discussion`，进入拷问流程。需要保存结果时说「保存 / 落文档」，技能会在写入前展示摘要 / diff 并经你确认后落盘到当前工作目录。
+在 Claude Code 或 Hermes 对话中输入 `/socratic-questioning`，进入拷问流程。需要保存结果时说「保存 / 落文档」，技能会在写入前展示摘要 / diff 并经你确认后落盘到当前工作目录。
 
 ## 文件结构
 
 ```
-deep-discussion/
+socratic-questioning/
 ├── SKILL.md                  # 技能主体（拷问纪律 + 落盘规则 + 验收标准）
 ├── references/               # CONTEXT / ADR / 讨论纪要 的格式规范
 ├── scripts/install.sh        # 双端 symlink 安装
